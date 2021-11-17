@@ -8,4 +8,4 @@ phases:
   pre_build:
     commands:
       - sh hello.sh
-      - echo $SOME_KEY1
+      - echo $VAR_VAR
