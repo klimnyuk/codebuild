@@ -7,6 +7,5 @@ env:
 phases:
   pre_build:
     commands:
-      - cd app/
-      - sh hello.sh
+      - sh codebuild/hello.sh
       - echo $VAR_VAR
