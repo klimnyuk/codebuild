@@ -18,7 +18,7 @@ variable "app_name" {
 
 variable "tag" {
   type    = string
-  default = "v0.1"
+  default = "v0.0"
 }
 
 data "aws_caller_identity" "current" {}
@@ -254,7 +254,6 @@ resource "aws_ecs_service" "worker" {
   cluster              = aws_ecs_cluster.ecs_cluster.id
   task_definition      = aws_ecs_task_definition.service.arn
   desired_count        = var.zones_count
-  force_new_deployment = true
 }
 
 resource "aws_launch_configuration" "ecs_launch_config" {
@@ -264,10 +263,6 @@ resource "aws_launch_configuration" "ecs_launch_config" {
   user_data            = "#!/bin/bash\necho ECS_CLUSTER=my-cluster >> /etc/ecs/ecs.config"
   instance_type        = "t2.micro"
   key_name             = "test"
-
-  lifecycle {
-    create_before_destroy = true
-  }
 }
 
 resource "aws_autoscaling_group" "my_ASG" {
@@ -277,38 +272,19 @@ resource "aws_autoscaling_group" "my_ASG" {
   target_group_arns         = [aws_alb_target_group.asg.arn]
   min_size                  = var.zones_count
   max_size                  = var.zones_count * 2
-  desired_capacity          = var.zones_count
+  desired_capacity          = var.zones_count + 1
   health_check_grace_period = 30
   health_check_type         = "EC2"
-  protect_from_scale_in     = true
-
-  tag {
-    key                 = "AmazonECSManaged"
-    value               = ""
-    propagate_at_launch = true
-  }
-
-  lifecycle {
-    create_before_destroy = true
-  }
-}
-
-resource "aws_ecs_capacity_provider" "test" {
-  name = "test"
-
-  auto_scaling_group_provider {
-    auto_scaling_group_arn         = aws_autoscaling_group.my_ASG.arn
-    managed_termination_protection = "ENABLED"
-
-    managed_scaling {
-      maximum_scaling_step_size = 200
-      minimum_scaling_step_size = 1
-      status                    = "ENABLED"
-      target_capacity           = var.zones_count + 1
-    }
-  }
 }
 
 output "load_balancer_link" {
   value = aws_alb.my_ALB.dns_name
+}
+
+terraform {
+  backend "s3" {
+    bucket = "my-klimnyuk-bucket"
+    key    = "codebuild/ec2"
+    region = "eu-central-1"
+  }
 }
