@@ -38,7 +38,7 @@ resource "aws_codebuild_project" "example" {
     type            = "GITHUB"
     location        = "https://github.com/klimnyuk/codebuild.git"
     git_clone_depth = 1
-    buildspec = "buildspec.yml"
+    buildspec = "codebuild/buildspec.yml"
     report_build_status = "true"
 
     git_submodules_config {
