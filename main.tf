@@ -26,7 +26,7 @@ data "aws_caller_identity" "current" {}
 resource "null_resource" "docker" {
   provisioner "local-exec" {
     command     = "build.sh"
-    interpreter = ["sh"]
+    interpreter = ["bash"]
     working_dir = "./app"
     environment = {
       ecr_repository_url = local.ecr_repository_url
@@ -227,7 +227,6 @@ resource "aws_iam_instance_profile" "ecs_agent" {
 
 resource "aws_ecs_cluster" "ecs_cluster" {
   name               = "my-cluster"
-  capacity_providers = [aws_ecs_capacity_provider.test.name]
 }
 
 resource "aws_ecs_task_definition" "service" {
