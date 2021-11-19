@@ -24,7 +24,8 @@ resource "aws_codebuild_project" "example" {
     compute_type                = "BUILD_GENERAL1_SMALL"
     image                       = "aws/codebuild/standard:5.0"
     type                        = "LINUX_CONTAINER"
-    image_pull_credentials_type = "CODEBUILD"
+    //image_pull_credentials_type = "CODEBUILD"
+    privileged_mode = true
 
 
    /* environment_variable {
@@ -66,6 +67,21 @@ resource "aws_codebuild_project" "example" {
   }*/
 }
 
+resource "aws_codebuild_webhook" "example" {
+  project_name = aws_codebuild_project.example.name
+  build_type   = "BUILD"
+ /* filter_group {
+    filter {
+      type    = "EVENT"
+      pattern = "PUSH"
+    }
+
+    filter {
+      type    = "HEAD_REF"
+      pattern = "master"
+    }
+  }*/
+}
 resource "aws_iam_role" "example" {
   name = "example"
 
