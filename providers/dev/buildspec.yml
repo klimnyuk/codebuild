@@ -14,10 +14,7 @@ phases:
       - chmod +x terragrunt && mv terragrunt /usr/local/bin/
   build:
     commands:
-      - terraform --version
-      - terragrunt --version
-      - pwd
-      - ls -l
       - export tag="${CODEBUILD_RESOLVED_SOURCE_VERSION}"
       - echo "Building version ${tag}"
       - echo "Codebuild soircedir ${CODEBUILD_SRC_DIR}"
+      - echo ${region}

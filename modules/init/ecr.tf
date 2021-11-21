@@ -9,6 +9,7 @@ resource "null_resource" "docker" {
       image_url = local.image_url
       id        = data.aws_caller_identity.current.account_id
       region    = var.region
+      tag       = var.tag
     }
   }
 }
@@ -18,5 +19,5 @@ resource "aws_ecr_repository" "demo_repository" {
 }
 
 locals {
-  image_url = format("%s.%s.%s.%s/%s-%s:%s", data.aws_caller_identity.current.account_id, "dkr.ecr", var.region, "amazonaws.com", var.app_name, var.env, var.tag)
+  image_url = format("%s.%s.%s.%s/%s-%s", data.aws_caller_identity.current.account_id, "dkr.ecr", var.region, "amazonaws.com", var.app_name, var.env)
 }
