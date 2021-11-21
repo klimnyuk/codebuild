@@ -18,3 +18,4 @@ phases:
       - export id=`aws sts get-caller-identity --output text | awk '{print $1}'`
       - echo $id
       - echo $tag
+      - echo $${app_name}

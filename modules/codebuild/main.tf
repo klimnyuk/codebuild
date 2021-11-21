@@ -1,6 +1,7 @@
 provider "aws" {
-  region = "eu-central-1"
+  region  = var.region
 }
+
 data "aws_region" "current" {}
 data "aws_caller_identity" "current_identity" {}
 
@@ -28,10 +29,10 @@ resource "aws_codebuild_project" "example" {
     privileged_mode = true
 
 
-   /* environment_variable {
-      name  = "SOME_KEY1"
-      value = "SOME_VALUE1"
-    }*/
+    environment_variable {
+      name  = "app_name"
+      value = "${var.app_name}"
+    }
   }
 
   source {
