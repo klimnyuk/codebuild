@@ -18,7 +18,3 @@ resource "aws_launch_configuration" "ecs_launch_config" {
   instance_type        = "t2.micro"
   key_name             = "test"
 }
-
-output "load_balancer_link" {
-  value = aws_alb.my_ALB.dns_name
-}

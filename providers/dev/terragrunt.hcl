@@ -5,6 +5,7 @@ locals {
     tag = "v0.0"
     profile = "default"
     zones_count = "2"
+    repository = "https://github.com/klimnyuk/codebuild"
 }
 
 inputs = {
@@ -14,6 +15,7 @@ inputs = {
     tag = local.tag
     profile = local.profile
     zones_count = local.zones_count
+    repository = local.repository
 }
 
 remote_state {

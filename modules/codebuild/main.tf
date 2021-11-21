@@ -35,10 +35,10 @@ resource "aws_codebuild_project" "example" {
   }
 
   source {
-    type            = "GITHUB"
-    location        = "https://github.com/klimnyuk/codebuild.git"
-    git_clone_depth = 1
-    buildspec = "codebuild/buildspec.yml"
+    type                = "GITHUB"
+    location            = var.repository
+    git_clone_depth     = 1
+    buildspec           = var.build_spec_file
     report_build_status = "true"
 
     git_submodules_config {
@@ -124,4 +124,15 @@ resource "aws_iam_role_policy" "example" {
   ]
 }
 POLICY
+}
+
+
+
+terraform {
+  backend "s3" {}
+  required_providers {
+    aws = {
+      version = "~> 3.35"
+    }
+  }
 }
