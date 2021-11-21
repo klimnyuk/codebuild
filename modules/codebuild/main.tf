@@ -33,6 +33,10 @@ resource "aws_codebuild_project" "example" {
       name  = "app_name"
       value = "${var.app_name}"
     }
+    environment_variable {
+      name  = "env"
+      value = "${var.env}"
+    }
   }
 
   source {

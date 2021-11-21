@@ -2,14 +2,14 @@ data "aws_caller_identity" "current" {}
 
 resource "null_resource" "docker" {
   provisioner "local-exec" {
-    command     = "build.sh"
-    interpreter = ["bash"]
-    working_dir = var.working_dir
-    environment = {
-      image_url = local.image_url
-      id        = data.aws_caller_identity.current.account_id
-      AWS_REGION = var.region
-      tag       = var.tag
+    command      = "build.sh"
+    interpreter  = ["bash"]
+    working_dir  = var.working_dir
+    environment  = {
+    image_url    = local.image_url
+    Account_ID   = data.aws_caller_identity.current.account_id
+    AWS_REGION   = var.region
+    tag          = var.tag
     }
   }
 }

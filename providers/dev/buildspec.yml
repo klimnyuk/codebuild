@@ -12,10 +12,8 @@ phases:
       - chmod +x terraform && mv terraform /usr/local/bin/terraform
       - wget -q -O terragrunt https://github.com/gruntwork-io/terragrunt/releases/download/v0.35.12/terragrunt_linux_amd64
       - chmod +x terragrunt && mv terragrunt /usr/local/bin/
+      - export tag="${CODEBUILD_RESOLVED_SOURCE_VERSION}"
+      - export Account_ID=`aws sts get-caller-identity --output text | awk '{print $1}'`
+      - export image_url="$Account_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$app_name-$env"
   build:
     commands:
-      - export tag="${CODEBUILD_RESOLVED_SOURCE_VERSION}"
-      - export id=`aws sts get-caller-identity --output text | awk '{print $1}'`
-      - echo $id
-      - echo $tag
-      - echo $app_name
