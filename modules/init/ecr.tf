@@ -8,7 +8,7 @@ resource "null_resource" "docker" {
     environment = {
       image_url = local.image_url
       id        = data.aws_caller_identity.current.account_id
-      region    = var.region
+      AWS_REGION = var.region
       tag       = var.tag
     }
   }
