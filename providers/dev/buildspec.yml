@@ -15,6 +15,6 @@ phases:
   build:
     commands:
       - pwd
-      - ll
+      - ls -l
       - export tag="${CODEBUILD_RESOLVED_SOURCE_VERSION}
       - echo "Building version ${tag}"
