@@ -16,5 +16,6 @@ phases:
     commands:
       - export tag="${CODEBUILD_RESOLVED_SOURCE_VERSION}"
       - echo "Building version ${tag}"
-      - echo "Codebuild soircedir ${CODEBUILD_SRC_DIR}"
-      - echo ${region}
+      - echo "Codebuild sourcedir ${CODEBUILD_SRC_DIR}"
+      - echo $region
+      - env
