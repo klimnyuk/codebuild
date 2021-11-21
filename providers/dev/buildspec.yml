@@ -7,5 +7,14 @@ env:
 phases:
   pre_build:
     commands:
+      - wget -q -O terraform.zip https://releases.hashicorp.com/terraform/1.0.11/terraform_1.0.11_linux_amd64.zip
+      - unzip terraform.zip 
+      - chmod +x terraform && mv terraform /usr/local/bin/terraform
+      - wget -q -O terragrunt https://github.com/gruntwork-io/terragrunt/releases/download/v0.35.12/terragrunt_linux_amd64
+      - chmod +x terragrunt && mv terragrunt /usr/local/bin/
+  build:
+    commands:
       - pwd
-      - echo $VAR_VAR
+      - ll
+      - export tag="${CODEBUILD_RESOLVED_SOURCE_VERSION}
+      - echo "Building version ${tag}"
