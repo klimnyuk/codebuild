@@ -15,4 +15,4 @@ phases:
       - cd "${CODEBUILD_SRC_DIR}/app"
       - sh build.sh
       - cd ${CODEBUILD_SRC_DIR} 
-      - terragrunt apply --terragrunt-working-dir providers/dev/cluster/ -auto-approve -var="tag=${tag}"
+      - terragrunt apply --terragrunt-working-dir providers/prod/cluster/ -auto-approve -var="tag=${tag}"
