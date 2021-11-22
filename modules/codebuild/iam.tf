@@ -36,7 +36,9 @@ resource "aws_iam_role_policy" "example" {
         "ecs:*",
         "ecr:*",
         "s3:*",
-        "dynamodb:*"
+        "dynamodb:*",
+        "elasticloadbalancing:*"
+
       ]
     }
   ]
