@@ -1,9 +1,5 @@
 version: 0.2
 
-env:
-  variables:
-    VAR_VAR: "qwerety"
-
 phases:
   pre_build:
     commands:
