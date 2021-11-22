@@ -38,7 +38,6 @@ resource "aws_iam_role_policy" "example" {
         "s3:*",
         "dynamodb:*",
         "elasticloadbalancing:*"
-
       ]
     }
   ]
