@@ -8,7 +8,7 @@ resource "null_resource" "import_source_credentials" {
 }
 
 resource "aws_codebuild_project" "example" {
-  name          = "test-project"
+  name          = "${var.app_name}-${var.env}"
   description   = "test_codebuild_project"
   build_timeout = "5"
   service_role  = aws_iam_role.example.arn
