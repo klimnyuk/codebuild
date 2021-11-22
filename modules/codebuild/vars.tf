@@ -1,3 +1,5 @@
+variable "region" {}
+
 variable "repository" {
     type = string 
 }
@@ -17,5 +19,3 @@ variable "app_name" {
 variable "env" {
   type    = string
 }
-
-variable "region" {}
