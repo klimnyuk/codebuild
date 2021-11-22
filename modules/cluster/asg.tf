@@ -11,10 +11,10 @@ resource "aws_autoscaling_group" "my_ASG" {
 }
 
 resource "aws_launch_configuration" "ecs_launch_config" {
-  image_id             = "ami-088d915ff2a776984"
+  image_id             = var.ami_id
   iam_instance_profile = aws_iam_instance_profile.ecs_agent.name
   security_groups      = [aws_security_group.my_SG.id]
   user_data            = "#!/bin/bash\necho ECS_CLUSTER=my-cluster >> /etc/ecs/ecs.config"
   instance_type        = "t2.micro"
-  key_name             = "test"
+//  key_name             = "test"
 }

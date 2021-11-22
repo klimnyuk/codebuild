@@ -1,12 +1,12 @@
 locals {
     app_name = "my-app"
-    env = "dev"
-    region = "eu-central-1"
+    env = "prod"
+    region = "eu-west-3"
     tag = "v0.0"
     profile = "default"
-    zones_count = "2"
+    zones_count = "3"
     repository = "https://github.com/klimnyuk/codebuild"
-    ami_id = "ami-0e8f6957a4eb67446"
+    ami_id = "ami-0bce8e5f8fd912af2"
 }
 
 inputs = {

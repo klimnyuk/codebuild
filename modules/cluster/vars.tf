@@ -21,3 +21,15 @@ variable "fargate_cpu" {
 variable "ecr_repository_url" {
   type = string
 }
+
+variable "app_name" {
+  type    = string
+}
+
+variable "env" {
+  type    = string
+}
+
+variable "ami_id" {
+  type = string
+}

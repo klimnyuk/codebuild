@@ -1,0 +1,18 @@
+version: 0.2
+
+phases:
+  pre_build:
+    commands:
+      - wget -q -O terraform.zip https://releases.hashicorp.com/terraform/1.0.11/terraform_1.0.11_linux_amd64.zip
+      - unzip terraform.zip 
+      - chmod +x terraform && mv terraform /usr/local/bin/terraform
+      - wget -q -O terragrunt https://github.com/gruntwork-io/terragrunt/releases/download/v0.35.12/terragrunt_linux_amd64
+      - chmod +x terragrunt && mv terragrunt /usr/local/bin/
+      - export tag="${CODEBUILD_RESOLVED_SOURCE_VERSION}"
+      - export image_url="$Account_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$app_name-$env"
+  build:
+    commands:
+      - cd "${CODEBUILD_SRC_DIR}/app"
+      - sh build.sh
+      - cd ${CODEBUILD_SRC_DIR} 
+      - terragrunt apply --terragrunt-working-dir providers/dev/cluster/ -auto-approve -var="tag=${tag}"

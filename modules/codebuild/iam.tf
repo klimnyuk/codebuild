@@ -1,5 +1,5 @@
 resource "aws_iam_role" "example" {
-  name = "example"
+  name = "MY-codebuild-role-for-${var.app_name}-${var.env}"
 
   assume_role_policy = <<EOF
 {
