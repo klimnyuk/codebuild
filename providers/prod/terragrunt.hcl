@@ -7,6 +7,7 @@ locals {
     zones_count = "3"
     repository = "https://github.com/klimnyuk/codebuild"
     ami_id = "ami-0bce8e5f8fd912af2"
+    branch_pattern = "main"
 }
 
 inputs = {
@@ -18,6 +19,7 @@ inputs = {
     zones_count = local.zones_count
     repository = local.repository
     ami_id = local.ami_id
+    branch_pattern = local.branch_pattern
 }
 
 remote_state {

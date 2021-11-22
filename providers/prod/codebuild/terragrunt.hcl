@@ -18,6 +18,6 @@ locals {
 inputs = merge (
   local.secrets.inputs,
   {
-  build_spec_file = "providers/dev/buildspec.yml"
+  build_spec_file = "providers/prod/buildspec.yml"
 }
 )

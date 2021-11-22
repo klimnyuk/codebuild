@@ -19,3 +19,7 @@ variable "app_name" {
 variable "env" {
   type    = string
 }
+
+variable "branch_pattern" {
+  type = string
+}
