@@ -45,3 +45,8 @@ resource "aws_iam_role_policy" "example" {
 }
 POLICY
 }
+
+resource "aws_iam_role_policy_attachment" "ecs_full_access" {
+  role = aws_iam_role.example.name
+  policy_arn = "arn:aws:iam::aws:policy/AmazonECS_FullAccess"
+}
