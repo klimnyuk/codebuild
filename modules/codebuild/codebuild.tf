@@ -44,31 +44,7 @@ resource "aws_codebuild_project" "example" {
     git_clone_depth     = 1
     buildspec           = var.build_spec_file
     report_build_status = "true"
-
-    git_submodules_config {
-      fetch_submodules = true
-    }
   }
-
-  source_version = "master"
-
-  /*vpc_config {
-    vpc_id = aws_vpc.example.id
-
-    subnets = [
-      aws_subnet.example1.id,
-      aws_subnet.example2.id,
-    ]
-
-    security_group_ids = [
-      aws_security_group.example1.id,
-      aws_security_group.example2.id,
-    ]
-  }
-
-  tags = {
-    Environment = "Test"
-  }*/
 }
 
 resource "aws_codebuild_webhook" "example" {

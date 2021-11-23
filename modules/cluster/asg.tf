@@ -5,9 +5,21 @@ resource "aws_autoscaling_group" "my_ASG" {
   target_group_arns         = [aws_alb_target_group.asg.arn]
   min_size                  = var.zones_count
   max_size                  = var.zones_count * 2
-  desired_capacity          = var.zones_count + 1
-  health_check_grace_period = 30
+  //desired_capacity          = var.zones_count + 1
+  health_check_grace_period = 20
   health_check_type         = "EC2"
+
+  protect_from_scale_in = false
+  
+  lifecycle {
+    create_before_destroy = true
+     }
+
+  tag {
+    key                 = "AmazonECSManaged"
+    value               = "ecs"
+    propagate_at_launch = true
+  }
 }
 
 resource "aws_launch_configuration" "ecs_launch_config" {
@@ -17,4 +29,8 @@ resource "aws_launch_configuration" "ecs_launch_config" {
   user_data            = "#!/bin/bash\necho ECS_CLUSTER=my-cluster >> /etc/ecs/ecs.config"
   instance_type        = "t2.micro"
 //  key_name             = "test"
+
+lifecycle {
+    create_before_destroy = true
+  }
 }

@@ -1,5 +1,6 @@
 resource "aws_ecs_cluster" "ecs_cluster" {
   name               = "my-cluster"
+  capacity_providers = [aws_ecs_capacity_provider.test.name]
 }
 
 resource "aws_ecs_task_definition" "service" {
@@ -26,4 +27,27 @@ resource "aws_ecs_service" "worker" {
   cluster              = aws_ecs_cluster.ecs_cluster.id
   task_definition      = aws_ecs_task_definition.service.arn
   desired_count        = var.zones_count
+  deployment_minimum_healthy_percent = "90"
+
+  capacity_provider_strategy {
+  capacity_provider = aws_ecs_capacity_provider.test.name
+  weight = 1
+  base = 0
+}
+}
+
+resource "aws_ecs_capacity_provider" "test" {
+  name = "test"
+  
+  auto_scaling_group_provider {
+    auto_scaling_group_arn         = aws_autoscaling_group.my_ASG.arn
+    managed_termination_protection = "DISABLED"
+
+    managed_scaling {
+      maximum_scaling_step_size = var.zones_count * 2
+      minimum_scaling_step_size = var.zones_count
+      status                    = "ENABLED"
+      target_capacity           = 100
+    }
+  }
 }
