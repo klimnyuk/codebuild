@@ -17,7 +17,7 @@ resource "aws_autoscaling_group" "my_ASG" {
 
   tag {
     key                 = "AmazonECSManaged"
-    value               = "ecs"
+    value               = ""
     propagate_at_launch = true
   }
 }
@@ -28,7 +28,7 @@ resource "aws_launch_configuration" "ecs_launch_config" {
   security_groups      = [aws_security_group.my_SG.id]
   user_data            = "#!/bin/bash\necho ECS_CLUSTER=my-cluster >> /etc/ecs/ecs.config"
   instance_type        = "t2.micro"
-//  key_name             = "test"
+  //key_name             = "test"
 
 lifecycle {
     create_before_destroy = true
